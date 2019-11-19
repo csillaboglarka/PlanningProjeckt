@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentContainer;
@@ -32,60 +34,44 @@ public class AddNewQuestionDialog extends DialogFragment {
     }
 
 
+    @Override
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+
+                             Bundle savedInstanceState) {
+
+
+        return inflater.inflate(R.layout.question_dialog, container);
+
+    }
 
 
 
     @Override
 
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.question_dialog, null);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+
+        // Get field from view
 
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        EditText editTextQuestion = view.findViewById(R.id.QuestionEditText);
+
+        // Fetch arguments from bundle and set title
 
 
-        alertDialogBuilder.setMessage("Are you sure?");
-
-        alertDialogBuilder.setPositiveButton("ADD",  new DialogInterface.OnClickListener() {
-
-            @Override
-
-            public void onClick(DialogInterface dialog, int which) {
-
-                // on success
-
-            }
-
-        });
-
-        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-
-            @Override
-
-            public void onClick(DialogInterface dialog, int which) {
-
-                if (dialog != null ) {
-
-                    dialog.dismiss();
-
-                }
-
-            }
+        // Show soft keyboard automatically and request focus to field
 
 
 
-        });
 
-
-
-        return alertDialogBuilder.create();
+    }
 
     }
 
 
 
 
-}
+
 
