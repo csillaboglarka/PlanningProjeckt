@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Admin</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="locspinner">
+        <item>Marosvasarhely</item>
+        <item>Kolozsvar</item>
+        <item>Csikszereda</item>
+        <item>Bukarest</item>
+        <item>Szeben</item>
+    </string-array>
+
+    <string-array name="departmentspinner">
+        <item>Informatics</item>
+        <item>Mechanical engineer</item>
+        <item>Mathematics</item>
+        <item>English</item>
+        <item>Physics</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

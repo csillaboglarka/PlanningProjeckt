@@ -7,11 +7,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c53fb05f-f5c3-4b7e-be74-4beb4359967a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/app/src/main/java/com/example/admin/CreateGroupFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/app/src/main/java/com/example/admin/FirebaseDataHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/app/src/main/java/com/example/admin/FragmentShow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/app/src/main/java/com/example/admin/Groups.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/app/src/main/java/com/example/admin/signFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/app/src/main/res/layout/fragment_create_group.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/app/src/main/res/layout/fragment_fragment_show.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Admin/app/src/main/res/layout/fragment_sign.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Admin/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Admin/app/src/main/java/com/example/admin/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/app/src/main/java/com/example/admin/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Admin/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Admin/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,33 +85,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="PlanningProjeckt" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\bende\Documents\GitHub\PlanningProjeckt" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="PlanningProjeckt" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\bende\Documents\GitHub\PlanningProjeckt" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name=".idea" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="PlanningProjeckt" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\bende\Documents\GitHub\PlanningProjeckt" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="Admin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="PlanningProjeckt" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\bende\Documents\GitHub\PlanningProjeckt" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="Admin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -195,6 +175,33 @@
       </pane>
       <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="PlanningProjeckt" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\bende\Documents\GitHub\PlanningProjeckt" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="PlanningProjeckt" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\bende\Documents\GitHub\PlanningProjeckt" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name=".idea" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="PlanningProjeckt" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\bende\Documents\GitHub\PlanningProjeckt" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="Admin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="PlanningProjeckt" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\bende\Documents\GitHub\PlanningProjeckt" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="Admin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
