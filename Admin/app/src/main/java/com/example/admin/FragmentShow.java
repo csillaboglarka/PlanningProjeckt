@@ -54,7 +54,7 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
     private FloatingActionButton addNewQuestionButton;
     public ArrayList<QuestionItem> questionItems;
     private Button createSessionButton;
-    private String groupId = "55666";
+    private String groupId;
 
 
 
@@ -63,6 +63,7 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
         // Inflate the layout for this fragment
         View v;
         v = inflater.inflate(R.layout.fragment_fragment_show, container, false);
+        groupId = getArguments().getString("groupId");
         questionItems = new ArrayList<>();
         addNewQuestionButton = v.findViewById(R.id.AddNewQuestion);
       addNewQuestionButton.setOnClickListener(new View.OnClickListener() {

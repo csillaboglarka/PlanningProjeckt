@@ -1,5 +1,6 @@
 package com.example.admin;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -50,6 +51,9 @@ public class signFragment extends Fragment {
     public boolean conSession;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference adminReference = database.getReference().child("Groups");
+
+
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,7 +111,11 @@ public class signFragment extends Fragment {
 
                         conSession = true;
                         FragmentTransaction fr = getFragmentManager().beginTransaction();
-                        fr.replace(R.id.fragment_container, new FragmentShow());
+                        Fragment f = new FragmentShow();
+                        fr.replace(R.id.fragment_container,f);
+                        Bundle args = new Bundle();
+                        args.putString("groupId",groupid.getText().toString());
+                        f.setArguments(args);
                         fr.commit();
                         break;
                     }
