@@ -28,6 +28,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -55,6 +57,7 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
     private FloatingActionButton addNewQuestionButton;
     public ArrayList<QuestionItem> questionItems;
     private Button showAnswers;
+    private Switch mybutton;
     private String groupId;
     private int postion;
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -68,6 +71,7 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
         final View v;
         v = inflater.inflate(R.layout.fragment_fragment_show, container, false);
         groupId = getArguments().getString("groupId");
+
         questionItems = new ArrayList<>();
         questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -78,7 +82,9 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
                     if (txt.equals(groupId)) {
                         String q = item.child("question").getValue().toString();
                         String p = item.child("active").getValue().toString();
-                        if(p.equals(true)){
+
+                        if(p.equals("true")){
+                            Log.i("fbdb",String.valueOf(p.equals(true)));
                         QuestionItem q1 = new QuestionItem(q,true);
                         questionItems.add(q1);
                         }
@@ -118,14 +124,30 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Add new question");
                 final EditText question = new EditText(getContext());
-                builder.setView(question);
+                final Switch active = new Switch(getContext());
+                LinearLayout layout = new LinearLayout(getContext());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.addView(question);
+                layout.addView(active);
+
+                builder.setView(layout);
                 builder.setPositiveButton("add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String questionDesc = question.getText().toString();
-                        applyQuestion(questionDesc);
-                        QuestionItem q= new QuestionItem(questionDesc,false);
-                        FirebaseDataHelper.Instance.InsertQuestion(q,groupId);
+                        Log.i("fbdb",String.valueOf(active.isChecked()));
+                        if(active.isChecked()){
+                            Boolean active = true;
+                            applyQuestion(questionDesc,active);
+                            QuestionItem q= new QuestionItem(questionDesc,active);
+                             FirebaseDataHelper.Instance.InsertQuestion(q,groupId);}
+                        else {
+                            Boolean active = false;
+                            applyQuestion(questionDesc,active);
+                            QuestionItem q= new QuestionItem(questionDesc,active);
+                            FirebaseDataHelper.Instance.InsertQuestion(q,groupId);
+                        }
+
                     }
                 });
 
@@ -150,10 +172,15 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
         return v;
     }
 
+
+    public void applyQuestion(String question,Boolean active) {
+        questionItems.add(new QuestionItem(question,active));
+        questionAdapter.notifyItemInserted(questionItems.size());
+    }
+
     @Override
     public void applyQuestion(String question) {
-        questionItems.add(new QuestionItem(question,true));
-        questionAdapter.notifyItemInserted(questionItems.size());
+
     }
 
     @Override

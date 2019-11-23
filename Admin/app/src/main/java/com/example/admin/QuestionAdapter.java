@@ -61,6 +61,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         QuestionItem currentItem = mQuestionList.get(position);
         holder.mQuestion.setText(currentItem.question);
 
+        if(currentItem.active == true) {
+
+            holder.mSwitch.setChecked(true);
+        }
+
     }
 
 

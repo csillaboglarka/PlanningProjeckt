@@ -48,6 +48,7 @@ import static android.app.Activity.RESULT_OK;
 public class signFragment extends Fragment {
    EditText groupid;
    Button openID;
+   Button NewGroup;
     public boolean conSession;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference adminReference = database.getReference().child("Groups");
@@ -62,7 +63,9 @@ public class signFragment extends Fragment {
        v =inflater.inflate(R.layout.fragment_sign, container, false);
         groupid = v.findViewById(R.id.groupId);
         openID=(Button) v.findViewById(R.id.open);
-       /* openID.setOnClickListener(new View.OnClickListener() {
+        NewGroup = v.findViewById(R.id.newfragment);
+
+        NewGroup.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -83,7 +86,7 @@ public class signFragment extends Fragment {
             }
         });
 
-        */
+
        openID.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {

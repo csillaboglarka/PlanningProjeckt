@@ -75,6 +75,7 @@ public class signFragment extends Fragment {
                         args.putString("groupId",id);
                         args.putString("Name",myName);
                         f.setArguments(args);
+
                         fr.commit();
                         break;
                     }

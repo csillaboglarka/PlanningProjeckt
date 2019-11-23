@@ -69,7 +69,7 @@ public class FragmentShow extends Fragment {
                     if (txt.equals(groupId)) {
                         if(item.child("active").getValue().toString().equals("true")) {
                             String q = item.child("question").getValue().toString();
-                            QuestionItem q1 = new QuestionItem(q);
+                            QuestionItem q1 = new QuestionItem(q,groupId,name.getText().toString());
                             questionItems.add(q1);}
                     }
 
