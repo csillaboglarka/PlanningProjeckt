@@ -24,7 +24,7 @@
                 android:id="@+id/QuestionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Test test test"
+                android:text="@string/question"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:backgroundTint="#2C7A73"
-            android:text="Answer" />
+            android:text="@string/answer" />
         <TextView
             android:id="@+id/userName"
             android:layout_width="90dp"

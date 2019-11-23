@@ -140,6 +140,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                             @Override
                             public void onClick(View v) {
                                 if(!check) {
+
                                     b3.setTextColor(Color.GREEN);
                                     answer = b3.getText().toString();
                                     check = true;

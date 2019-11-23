@@ -22,7 +22,7 @@
                 android:id="@+id/QuestionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Test test test"
+                android:text="@string/question"
 
                 android:textStyle="bold" />
 
@@ -31,7 +31,7 @@
                 android:id="@+id/myNames"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="shhshshshs"
+                android:text="@string/user_name"
                  />
 
 
@@ -41,12 +41,12 @@
             android:id="@+id/AnswerButton"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:clickable="false"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:backgroundTint="#2C7A73"
-            android:text="value" />
+            android:clickable="false"
+            android:text="@string/value" />
 
 
 

@@ -4,10 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.signFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:id="@+id/frg">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:id ="@+id/fragmentTitle"
+            android:text="@string/joinGroup"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="300dp"
         android:layout_margin="10dp"
         android:gravity="center"
         android:orientation="vertical">
@@ -17,32 +38,32 @@
             android:id="@+id/groupId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:ems="10"
-            android:hint="Group ID"
-            android:inputType="number"
-            android:layout_centerHorizontal="true"/>
+            android:hint="@string/groupid"
+            android:inputType="number" />
+
         <EditText
             android:id="@+id/Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/groupId"
-            android:ems="10"
             android:layout_centerHorizontal="true"
-            android:inputType="text"
-            android:hint="Name"/>
+            android:ems="10"
+            android:hint="@string/user_name"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/Name"
-            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:text="Open" />
-
-
+            android:layout_marginTop="10dp"
+            android:text="@string/join" />
 
 
     </RelativeLayout>
+    </LinearLayout>
 
 </FrameLayout>
