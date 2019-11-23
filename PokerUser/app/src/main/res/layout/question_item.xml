@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="#181825"
     android:layout_marginBottom="4dp"
     app:cardCornerRadius="4dp">
 
@@ -15,32 +16,35 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/QuestionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="195dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="@string/question"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="13dp"
+                android:textColor="@color/colorPrimaryDark"
+                 />
 
+            <Button
+                android:id="@+id/AnswerButton"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:backgroundTint="#A00F20"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@string/answer" />
 
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/AnswerButton"
-            android:layout_width="90dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:backgroundTint="#2C7A73"
-            android:text="@string/answer" />
+
         <TextView
             android:id="@+id/userName"
             android:layout_width="90dp"

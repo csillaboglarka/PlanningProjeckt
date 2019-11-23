@@ -4,6 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.signFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:id="@+id/frg">
+
+        <TextView
+            android:id="@+id/fragmentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:shadowColor="#051F1C"
+            android:gravity="center"
+            android:text="@string/open_create"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#2C7A73" />
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -44,6 +68,7 @@
 
 
     </RelativeLayout>
+    </LinearLayout>
 
 
 </FrameLayout>

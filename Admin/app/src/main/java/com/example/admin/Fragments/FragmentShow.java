@@ -72,7 +72,6 @@ public class FragmentShow extends Fragment   {
                         String p = item.child("active").getValue().toString();
 
                         if(p.equals("true")) {
-                            Log.i("fbdb",String.valueOf(p.equals(true)));
                         QuestionItem q1 = new QuestionItem(q,true);
                         questionItems.add(q1);
                         }
@@ -147,7 +146,7 @@ public class FragmentShow extends Fragment   {
     }
 
 
-    public void applyQuestion(String question,Boolean active) {
+    private void applyQuestion(String question,Boolean active) {
         questionItems.add(new QuestionItem(question,active));
         questionAdapter.notifyItemInserted(questionItems.size());
     }

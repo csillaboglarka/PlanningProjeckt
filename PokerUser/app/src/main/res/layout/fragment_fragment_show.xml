@@ -14,12 +14,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:padding="10dp">
+            android:padding="5dp">
 
 
             <TextView
                 android:id="@+id/currentUser"
-                android:layout_width="180dp"
+                android:layout_width="190dp"
                 android:layout_height="50dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:shadowColor="@color/colorPrimary"
@@ -36,10 +36,11 @@
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerHorizontal="true"
+                android:layout_marginRight="12dp"
+                android:backgroundTint="#86464545"
+                android:text="@string/result"
                 android:textColor="@color/colorPrimaryDark"
-                android:backgroundTint="#F5F8F8"
-                android:textStyle="italic"
-                android:text="@string/result" />
+                android:textStyle="italic" />
 
         </RelativeLayout>
 
@@ -48,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/SessionsControlRelativeLayout"
-            android:padding="4dp"
+            android:padding="1dp"
             android:scrollbars="vertical" />
 
     </RelativeLayout>
