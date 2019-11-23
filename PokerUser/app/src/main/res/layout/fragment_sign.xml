@@ -15,10 +15,10 @@
         android:id="@+id/frg">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:gravity="center"
             android:textAllCaps="true"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:id ="@+id/fragmentTitle"
             android:text="@string/joinGroup"
             android:textStyle="bold"/>
@@ -39,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:textStyle="bold"
             android:ems="10"
             android:hint="@string/groupid"
             android:inputType="number" />
@@ -49,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/groupId"
             android:layout_centerHorizontal="true"
+            android:textStyle="bold"
             android:ems="10"
             android:hint="@string/user_name"
             android:inputType="text" />
@@ -60,6 +62,7 @@
             android:layout_below="@id/Name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
+            android:textStyle="bold"
             android:text="@string/join" />
 
 
