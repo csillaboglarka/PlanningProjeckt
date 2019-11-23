@@ -1,15 +1,7 @@
-package com.example.admin;
+package com.example.admin.Database;
 
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.fragment.app.Fragment;
-
-import com.google.firebase.database.DataSnapshot;
+import com.example.admin.Classes.Groups;
+import com.example.admin.Classes.QuestionItem;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

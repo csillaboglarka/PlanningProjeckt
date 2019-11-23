@@ -5,8 +5,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.admin.Fragments.signFragment;
 
 public class MainActivity extends AppCompatActivity {
 

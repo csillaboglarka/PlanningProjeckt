@@ -1,4 +1,4 @@
-package com.example.admin;
+package com.example.admin.Classes;
 
 public class Groups {
     String groupId;

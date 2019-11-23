@@ -13,15 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:id="@+id/frg">
+
         <TextView
+            android:id="@+id/fragmentTitle"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="70dp"
+            android:shadowColor="#051F1C"
             android:gravity="center"
-            android:textAllCaps="true"
-            android:textSize="25sp"
-            android:id ="@+id/fragmentTitle"
             android:text="@string/joinGroup"
-            android:textStyle="bold"/>
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#2C7A73" />
     </RelativeLayout>
 
 
@@ -36,33 +40,41 @@
 
         <EditText
             android:id="@+id/groupId"
+            style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textStyle="bold"
             android:ems="10"
             android:hint="@string/groupid"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#1C7E74" />
 
         <EditText
             android:id="@+id/Name"
+            style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/groupId"
             android:layout_centerHorizontal="true"
-            android:textStyle="bold"
+            android:breakStrategy="high_quality"
             android:ems="10"
+            android:fontFamily="sans-serif"
             android:hint="@string/user_name"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#1C7E74" />
 
         <Button
             android:id="@+id/open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
             android:layout_below="@id/Name"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
+            android:layout_marginTop="29dp"
+            android:textSize="16sp"
+            android:textColor="#eaf1e5"
+            android:backgroundTint="#2C7A73"
             android:text="@string/join" />
 
 

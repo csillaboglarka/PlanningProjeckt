@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentShow">
+    tools:context=".Fragments.FragmentShow">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,14 +17,15 @@
 
 
             <Button
-                android:id="@+id/CreateScrumSessionButton"
+                android:id="@+id/ViewAnswers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:padding="5dp"
                 android:background="@drawable/custom_button"
                 android:textAllCaps="false"
-                android:textColor="@color/cardview_light_background" />
+                android:textColor="#ffffff"
+                android:text="Answers"/>
 
         </RelativeLayout>
 

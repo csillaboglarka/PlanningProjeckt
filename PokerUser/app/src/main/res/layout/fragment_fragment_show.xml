@@ -36,6 +36,9 @@
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerHorizontal="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:backgroundTint="#F5F8F8"
+                android:textStyle="italic"
                 android:text="@string/result" />
 
         </RelativeLayout>
