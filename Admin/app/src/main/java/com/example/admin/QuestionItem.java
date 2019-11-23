@@ -2,11 +2,12 @@ package com.example.admin;
 
 public class QuestionItem {
     public String question;
-    public String difficulty;
     public String groupId;
+    public boolean active;
 
-    public QuestionItem(String question) {
+    public QuestionItem(String question,boolean active) {
         this.question = question;
+        this.active= active;
 
     }
 

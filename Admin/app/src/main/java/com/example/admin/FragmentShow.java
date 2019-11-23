@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -53,18 +54,59 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
     private RecyclerView.LayoutManager questionLayoutManager;
     private FloatingActionButton addNewQuestionButton;
     public ArrayList<QuestionItem> questionItems;
-    private Button createSessionButton;
+    private Button showAnswers;
     private String groupId;
-
+    private int postion;
+    static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    static DatabaseReference adminReference = database.getReference().child("Groups");
+    static DatabaseReference questionsReference = database.getReference().child("Questions");
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v;
+        final View v;
         v = inflater.inflate(R.layout.fragment_fragment_show, container, false);
         groupId = getArguments().getString("groupId");
         questionItems = new ArrayList<>();
+        questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    String txt = item.child("groupId").getValue().toString();
+
+                    if (txt.equals(groupId)) {
+                        String q = item.child("question").getValue().toString();
+                        String p = item.child("active").getValue().toString();
+                        if(p.equals(true)){
+                        QuestionItem q1 = new QuestionItem(q,true);
+                        questionItems.add(q1);
+                        }
+                        else {
+                            QuestionItem q1 = new QuestionItem(q,false);
+                            questionItems.add(q1);
+                        }
+
+                    }
+
+
+                }
+
+                questionAdapter = new QuestionAdapter(questionItems);
+                questionsRecyclerView = v.findViewById(R.id.questionListRecyclerView);
+                questionLayoutManager = new LinearLayoutManager(getActivity());
+                questionsRecyclerView.setLayoutManager(questionLayoutManager);
+                questionsRecyclerView.setAdapter(questionAdapter);
+                questionsRecyclerView.setHasFixedSize(true);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         addNewQuestionButton = v.findViewById(R.id.AddNewQuestion);
       addNewQuestionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +124,7 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
                     public void onClick(DialogInterface dialog, int which) {
                         String questionDesc = question.getText().toString();
                         applyQuestion(questionDesc);
-                        QuestionItem q= new QuestionItem(questionDesc);
+                        QuestionItem q= new QuestionItem(questionDesc,false);
                         FirebaseDataHelper.Instance.InsertQuestion(q,groupId);
                     }
                 });
@@ -99,7 +141,8 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
           questionsRecyclerView.setLayoutManager(questionLayoutManager);
             questionsRecyclerView.setAdapter(questionAdapter);
             questionsRecyclerView.setHasFixedSize(true);
-          // questionAdapter.setOnItemClickListener(getActivity().);
+
+
 
 
 
@@ -109,7 +152,7 @@ public class FragmentShow extends Fragment implements AddQuestionDialogListener 
 
     @Override
     public void applyQuestion(String question) {
-        questionItems.add(new QuestionItem(question));
+        questionItems.add(new QuestionItem(question,true));
         questionAdapter.notifyItemInserted(questionItems.size());
     }
 

@@ -11,23 +11,13 @@
         android:layout_height="match_parent"
         android:layout_margin="4dp">
 
-        <ImageView
-            android:id="@+id/QuestionImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="0dp"
-            android:padding="2dp"
-            android:src="@drawable/ic_help_black_24dp" />
+
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/simpleSwitch"
-            android:layout_toRightOf="@id/QuestionImage"
             android:orientation="vertical">
 
             <TextView
@@ -43,13 +33,6 @@
 
         </LinearLayout>
 
-        <Switch
-            android:id="@+id/simpleSwitch"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
 
 
     </RelativeLayout>

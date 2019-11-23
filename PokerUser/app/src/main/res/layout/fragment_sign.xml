@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".signFragment">
+    tools:context=".Fragments.signFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,29 +21,28 @@
             android:hint="Group ID"
             android:inputType="number"
             android:layout_centerHorizontal="true"/>
+        <EditText
+            android:id="@+id/Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/groupId"
+            android:ems="10"
+            android:layout_centerHorizontal="true"
+            android:inputType="text"
+            android:hint="Name"/>
 
         <Button
             android:id="@+id/open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/groupId"
+            android:layout_below="@id/Name"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:text="Open" />
 
-        <Button
-            android:id="@+id/newfragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/open"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="10dp"
 
-            android:layout_centerHorizontal="true"
-            android:text="new" />
 
 
     </RelativeLayout>
-
 
 </FrameLayout>
