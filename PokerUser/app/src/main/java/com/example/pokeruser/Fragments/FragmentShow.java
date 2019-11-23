@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 
 public class FragmentShow extends Fragment {
@@ -38,7 +40,6 @@ public class FragmentShow extends Fragment {
     private RecyclerView questionsRecyclerView;
     public QuestionAdapter questionAdapter;
     private RecyclerView.LayoutManager questionLayoutManager;
-    private FloatingActionButton addNewQuestionButton;
     public ArrayList<QuestionItem> questionItems;
     private Button showAnswers;
     private String groupId;
@@ -52,11 +53,24 @@ public class FragmentShow extends Fragment {
         // Inflate the layout for this fragment
         final View v;
         v = inflater.inflate(R.layout.fragment_fragment_show, container, false);
+        showAnswers = v.findViewById(R.id.result);
 
-       groupId = getArguments().getString("groupId");
+        groupId = getArguments().getString("groupId");
         uName = getArguments().getString("Name");
         name=v.findViewById(R.id.currentUser);
         name.setText(uName);
+        showAnswers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fr = getFragmentManager().beginTransaction();
+                Fragment f = new AnswerResultFragment();
+                fr.replace(R.id.fragment_container,f);
+                Bundle args = new Bundle();
+                args.putString("groupId", groupId);
+                f.setArguments(args);
+                fr.commit();
+            }
+        });
 
 
         questionItems = new ArrayList<>();

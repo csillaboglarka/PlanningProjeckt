@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pokeruser.Classes.AnswerItem;
 import com.example.pokeruser.Classes.QuestionItem;
 import com.example.pokeruser.Fragments.FragmentShow;
-import com.example.pokeruser.Fragments.UserQuestionFragment;
+
 import com.example.pokeruser.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
