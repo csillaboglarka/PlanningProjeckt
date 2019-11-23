@@ -1,7 +1,5 @@
 package com.example.pokeruser.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,25 +20,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class signFragment extends Fragment {
-    EditText groupid;
-    Button openID;
-    EditText uName;
-    public boolean conSession;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference adminReference = database.getReference().child("Groups");
-
-
-
+    private EditText groupid;
+    private Button openID;
+    private EditText uName;
+    private boolean conSession;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference adminReference = database.getReference().child("Groups");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v;
         v =inflater.inflate(R.layout.fragment_sign, container, false);
         groupid = v.findViewById(R.id.groupId);
         uName =v.findViewById(R.id.Name);
-
         openID= v.findViewById(R.id.open);
+        //Belepes egy csoportba
         openID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,23 +43,20 @@ public class signFragment extends Fragment {
                 String myName = uName.getText().toString();
                 connectSession(id,myName);
 
-
-
             }
         });
 
         return v;
     }
-    public void connectSession(final String id,final String myName) {
+    private void connectSession(final String id,final String myName) {
 
         conSession = false;
-
         adminReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 conSession = false;
+                //itt nezi meg hogy valoban letezik olyan csoport es csak utana enged be
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    Log.i("FBDB", item.child("groupId").getValue() + "  " + id);
                     if (item.child("groupId").getValue().equals(id)) {
 
                         conSession = true;
@@ -75,7 +67,6 @@ public class signFragment extends Fragment {
                         args.putString("groupId",id);
                         args.putString("Name",myName);
                         f.setArguments(args);
-
                         fr.commit();
                         break;
                     }
@@ -83,9 +74,7 @@ public class signFragment extends Fragment {
                 if (conSession == false)
                 {
                     groupid.setError("Does not exist.");
-
                 }
-
 
             }
 
@@ -94,10 +83,7 @@ public class signFragment extends Fragment {
 
             }
 
-        }); }
-
-
-
-
+        });
+    }
 
 }

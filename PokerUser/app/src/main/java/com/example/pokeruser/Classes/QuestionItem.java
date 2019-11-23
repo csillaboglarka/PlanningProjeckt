@@ -9,9 +9,7 @@ package com.example.pokeruser.Classes;
         public QuestionItem(String question) {
             this.question = question;
 
-
         }
-
 
         public QuestionItem(String question,String groupId,String name) {
             this.question = question;

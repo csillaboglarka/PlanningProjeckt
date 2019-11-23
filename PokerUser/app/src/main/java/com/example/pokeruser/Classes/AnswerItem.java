@@ -1,7 +1,5 @@
 package com.example.pokeruser.Classes;
 
-import java.util.ArrayList;
-
 public class AnswerItem {
     public String name;
     public String answer;
@@ -15,9 +13,7 @@ public class AnswerItem {
         this.answer = answer;
         this.question=question;
 
-
     }
-
 
     public AnswerItem(String name, String answer,String groupId, String question) {
         this.name = name;

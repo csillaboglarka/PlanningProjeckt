@@ -2,71 +2,37 @@ package com.example.pokeruser.Adapters;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import com.example.pokeruser.Classes.AnswerItem;
 import com.example.pokeruser.Classes.QuestionItem;
-import com.example.pokeruser.Fragments.FragmentShow;
-
 import com.example.pokeruser.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-
-
-
-
-
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder> {
 
-    public ArrayList<QuestionItem> mQuestionList;
-    public  static  String mName;
-    public static String answer;
-    static boolean check = false;
-    public static String groupId;
-    static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    static DatabaseReference answerReference = database.getReference().child("Answers");
-    static DatabaseReference questionsReference = database.getReference().child("Questions");
-
-
-
+    private ArrayList<QuestionItem> mQuestionList;
+    private static String answer;
+    private static boolean check = false;
+    private static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private static DatabaseReference answerReference = database.getReference().child("Answers");
 
     public QuestionAdapter(ArrayList<QuestionItem> questionList) {
+
         this.mQuestionList = questionList;
 
-
     }
 
-
-
-    public void AddNewItem(QuestionItem newQuestion) {
-        if (newQuestion != null) {
-            this.mQuestionList.add(newQuestion);
-        }
-    }
 
     @NonNull
     @Override
@@ -80,12 +46,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         QuestionItem currentItem = mQuestionList.get(position);
         holder.mQuestion.setText(currentItem.question);
-        holder.nametext.setText(currentItem.name);
+        holder.nameText.setText(currentItem.name);
         holder.groupid.setText(currentItem.groupId);
     }
-
-
-
 
 
     @Override
@@ -95,23 +58,24 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mQuestion;
-        public Button mAnwer;
-        public String mName;
-        public String groupId;
-        public TextView nametext;
-        public TextView groupid;
+        TextView mQuestion;
+        Button mAnwer;
+         String mName;
+         String groupId;
+         TextView nameText;
+         TextView groupid;
 
 
-        public QuestionViewHolder(@NonNull View itemView) {
+        private QuestionViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mQuestion = itemView.findViewById(R.id.QuestionTextView);
-            nametext = itemView.findViewById(R.id.userName);
+            nameText = itemView.findViewById(R.id.userName);
             groupid=itemView.findViewById(R.id.idgroup);
-            mName= nametext.getText().toString();
+            mName= nameText.getText().toString();
             groupId=groupid.getText().toString();
             mAnwer = itemView.findViewById(R.id.AnswerButton);
+            //itt kezdhetunk el valaszolni ami egy uj dialogot nyit meg
             mAnwer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -134,12 +98,18 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                         b4.setText("20");
                         b5.setText("50");
                         b6.setText("100");
+                        b1.setTextSize(35);
+                        b2.setTextSize(35);
+                        b3.setTextSize(35);
+                        b4.setTextSize(35);
+                        b5.setTextSize(35);
+                        b6.setTextSize(35);
 
                         b1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(check == false) {
-                                    b1.setTextColor(Color.BLUE);
+                                if(!check) {
+                                    b1.setTextColor(Color.GREEN);
                                     answer = b1.getText().toString();
                                     check = true;
 
@@ -153,8 +123,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                         b2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(check == false) {
-                                    b2.setTextColor(Color.BLUE);
+                                if(!check ) {
+                                    b2.setTextColor(Color.GREEN);
                                     answer = b2.getText().toString();
                                     check = true;
 
@@ -169,8 +139,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                         b3.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(check == false) {
-                                    b3.setTextColor(Color.BLUE);
+                                if(!check) {
+                                    b3.setTextColor(Color.GREEN);
                                     answer = b3.getText().toString();
                                     check = true;
 
@@ -186,7 +156,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                             @Override
                             public void onClick(View v) {
                                 if(!check) {
-                                    b4.setTextColor(Color.BLUE);
+                                    b4.setTextColor(Color.GREEN);
                                     answer = b4.getText().toString();
                                     check = true;
 
@@ -202,7 +172,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                             @Override
                             public void onClick(View v) {
                                 if(!check) {
-                                    b5.setTextColor(Color.BLUE);
+                                    b5.setTextColor(Color.GREEN);
                                     answer = b5.getText().toString();
                                     check = true;
 
@@ -218,7 +188,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                             @Override
                             public void onClick(View v) {
                                 if(!check ) {
-                                    b6.setTextColor(Color.BLUE);
+                                    b6.setTextColor(Color.GREEN);
                                     answer = b6.getText().toString();
                                     check = true;
 
@@ -245,19 +215,16 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                     builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
-                               // Log.i("fbdb",mName);
-
-                                mName= nametext.getText().toString();
+                                //Lementi a valaszunkat
+                                mName= nameText.getText().toString();
                                 groupId=groupid.getText().toString();
-
                                 AnswerItem my= new AnswerItem(mName,answer,groupId,mQuestion.getText().toString());
                                                    String newKey = answerReference.push().getKey();
+                                                   if(newKey!=null){
                                                    answerReference.child(newKey).setValue(my);
+                                                   }
                             }
                         });
-
-//
 
                         builder.show();
                     }
