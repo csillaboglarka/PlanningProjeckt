@@ -44,11 +44,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:backgroundTint="#FFFFFF"
             android:ems="10"
             android:hint="@string/groupid"
             android:inputType="number"
+            android:outlineAmbientShadowColor="#C9BFBF"
+            android:outlineSpotShadowColor="#00A04B4B"
+            android:shadowColor="#DDBE5F5F"
+            android:singleLine="true"
             android:textColor="#FFFFFF"
-            android:textColorHint="@color/colorPrimaryDark" />
+            android:textColorHint="#7C7A7A" />
 
         <EditText
             android:id="@+id/Name"
@@ -57,13 +62,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/groupId"
             android:layout_centerHorizontal="true"
+            android:backgroundTint="#FFFFFF"
             android:breakStrategy="high_quality"
             android:ems="10"
             android:fontFamily="sans-serif"
             android:hint="@string/user_name"
             android:inputType="text"
             android:textColor="#FFFFFF"
-            android:textColorHint="@color/colorPrimaryDark" />
+            android:textColorHint="#7C7A7A" />
 
         <Button
             android:id="@+id/open"
