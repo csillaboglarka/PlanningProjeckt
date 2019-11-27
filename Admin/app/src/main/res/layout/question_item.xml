@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="4dp"
+    android:backgroundTint="#181825"
     app:cardCornerRadius="4dp">
 
     <RelativeLayout
@@ -34,7 +35,7 @@
                 android:id="@+id/QuestionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:textColor="@color/colorPrimaryDark"
                 android:text="Test test test"
                 android:textSize="20dp"
                 android:textStyle="bold" />

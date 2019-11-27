@@ -18,14 +18,14 @@
             android:id="@+id/fragmentTitle"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:shadowColor="#051F1C"
+            android:shadowColor="@color/Dark"
             android:gravity="center"
             android:text="@string/open_create"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:textColor="#2C7A73" />
+            android:textColor="@color/colorPrimaryDark" />
     </RelativeLayout>
 
 
@@ -43,6 +43,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Group ID"
+            android:backgroundTint="#FFFFFF"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#7C7A7A"
             android:inputType="number"
             android:layout_centerHorizontal="true"/>
 
@@ -51,6 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/groupId"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="#eaf1e5"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:text="Open" />
@@ -62,7 +67,8 @@
             android:layout_below="@id/open"
             android:layout_centerVertical="true"
             android:layout_marginTop="10dp"
-
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="#eaf1e5"
             android:layout_centerHorizontal="true"
             android:text="new" />
 

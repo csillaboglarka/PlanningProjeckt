@@ -20,14 +20,10 @@ import java.util.ArrayList;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder> {
 
-    public ArrayList<QuestionItem> mQuestionList;
-    static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    static DatabaseReference adminReference = database.getReference().child("Groups");
-    static DatabaseReference questionsReference = database.getReference().child("Questions");
+    private ArrayList<QuestionItem> mQuestionList;
+    private static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private static DatabaseReference questionsReference = database.getReference().child("Questions");
 
-    public  int position;
-
-  //  private onItemClickListener mListener;
 
 
     public QuestionAdapter(ArrayList<QuestionItem> questionList) {
@@ -46,7 +42,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     @Override
     public QuestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_item, parent, false);
-        QuestionViewHolder qvh = new QuestionViewHolder(v,position);
+        QuestionViewHolder qvh = new QuestionViewHolder(v);
         return qvh;
     }
 
@@ -55,7 +51,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         QuestionItem currentItem = mQuestionList.get(position);
         holder.mQuestion.setText(currentItem.question);
 
-        if(currentItem.active == true) {
+        if(currentItem.active ) {
 
             holder.mSwitch.setChecked(true);
         }
@@ -73,12 +69,12 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mQuestion;
+        private TextView mQuestion;
        // public ImageView mDeleteQuestion;
-        public Switch mSwitch;
+        private Switch mSwitch;
 
 
-        public QuestionViewHolder(@NonNull View itemView, int postition) {
+        public QuestionViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mQuestion = itemView.findViewById(R.id.QuestionTextView);
