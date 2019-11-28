@@ -62,6 +62,7 @@ public class signFragment extends Fragment {
                         conSession = true;
                         FragmentTransaction fr = getFragmentManager().beginTransaction();
                         Fragment f = new FragmentShow();
+                        fr.addToBackStack(null);
                         fr.replace(R.id.fragment_container,f);
                         Bundle args = new Bundle();
                         args.putString("groupId",id);

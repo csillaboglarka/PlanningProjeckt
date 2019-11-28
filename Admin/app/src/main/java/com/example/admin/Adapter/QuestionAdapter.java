@@ -172,6 +172,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                     if (position != RecyclerView.NO_POSITION) {
                         FragmentTransaction fr = context.beginTransaction();
                         Fragment f = new AnswerResultFragment();
+                        fr.addToBackStack(null);
                         fr.replace(R.id.fragment_container,f);
                         Bundle args = new Bundle();
                         args.putString("question",mQuestion.getText().toString());

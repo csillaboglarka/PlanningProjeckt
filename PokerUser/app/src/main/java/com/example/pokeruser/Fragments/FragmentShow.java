@@ -125,6 +125,7 @@ public class FragmentShow extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction fr = getFragmentManager().beginTransaction();
                 Fragment f = new AnswerResultFragment();
+                fr.addToBackStack(null);
                 fr.replace(R.id.fragment_container, f);
                 Bundle args = new Bundle();
                 args.putString("question",question);

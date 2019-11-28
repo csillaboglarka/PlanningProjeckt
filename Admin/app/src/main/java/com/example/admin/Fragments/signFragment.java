@@ -1,6 +1,8 @@
 package com.example.admin.Fragments;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -25,7 +27,7 @@ public class signFragment extends Fragment {
    private boolean conSession;
    private FirebaseDatabase database = FirebaseDatabase.getInstance();
    private DatabaseReference adminReference = database.getReference().child("Groups");
-
+   private String id;
 
 
 
@@ -43,15 +45,33 @@ public class signFragment extends Fragment {
             @Override
             public void onClick(View view) {
              //   Intent intent = new Intent(view.getContext(), FragmentShow.class);
-                String id =groupid.getText().toString();
-                String key = FirebaseDataHelper.Instance.CreateNewGroup(id);
-                if (key.equals("Invalid")) {
-                    Toast.makeText(getActivity(),"Failed!",Toast.LENGTH_SHORT).show();
+                id =groupid.getText().toString();
+                adminReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot item: dataSnapshot.getChildren()){
+                            if(item.child("groupId").getValue().equals(id)) {
+                                Toast.makeText(getContext(),"Mar letezik ilyen csoport",Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                String key2 = FirebaseDataHelper.Instance.CreateNewGroup(id);
+                                if (key2.equals("Invalid")) {
+                                    Toast.makeText(getActivity(),"Failed!",Toast.LENGTH_SHORT).show();
 
-                }
-                else {
-                    Toast.makeText(getActivity(),key,Toast.LENGTH_SHORT).show();
-                }
+                                }
+                                else {
+                                    Toast.makeText(getActivity(),key2,Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
             }
         });
@@ -80,6 +100,7 @@ public class signFragment extends Fragment {
                         conSession = true;
                         FragmentTransaction fr = getFragmentManager().beginTransaction();
                         Fragment f = new FragmentShow();
+                        fr.addToBackStack(null);
                         fr.replace(R.id.fragment_container,f);
                         Bundle args = new Bundle();
                         args.putString("groupId",groupid.getText().toString());

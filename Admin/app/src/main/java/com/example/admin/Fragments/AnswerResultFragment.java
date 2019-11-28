@@ -1,10 +1,12 @@
 package com.example.admin.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -54,12 +56,13 @@ public class AnswerResultFragment extends Fragment {
                     if (id.equals(groupId) && sQuestion.equals(mQuestion)) {
                             String name = item.child("name").getValue().toString();
                             String  answer = item.child("answer").getValue().toString();
-
                             AnswerItem q1 = new AnswerItem(name,answer);
                             mAnswers.add(q1);
                             }
                 }
-
+                if(mAnswers.size()==0) {
+                    Toast.makeText(getContext(),"Nincsenek meg valaszok erre a kerdesre",Toast.LENGTH_LONG).show();;
+                }
                 answerAdapter = new AnswerAdapter(mAnswers);
                 answerRecyclerView = v.findViewById(R.id.questionListRecyclerView);
                 answerLayoutManager = new LinearLayoutManager(getActivity());

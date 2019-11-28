@@ -1,6 +1,9 @@
 package com.example.admin.Fragments;
 
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -89,9 +92,11 @@ public class FragmentShow extends Fragment   {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(),R.style.MyDialogTheme);
                 builder.setTitle("Add new question");
                 final EditText question = new EditText(getContext());
+                question.setTextColor(Color.parseColor("#FFFFFF"));
+                question.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
                 LinearLayout layout = new LinearLayout(getContext());
                 layout.setOrientation(LinearLayout.VERTICAL);
                 layout.addView(question);
