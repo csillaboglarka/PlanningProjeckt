@@ -1,5 +1,8 @@
 package com.example.admin.Adapter;
 
+
+import android.content.Context;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +14,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.admin.Classes.QuestionItem;
+import com.example.admin.Fragments.AnswerResultFragment;
 import com.example.admin.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,10 +37,15 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     private static DatabaseReference questionsReference = database.getReference().child("Questions");
     private static CheckBox lastChecked = null;
     private static int lastCheckedPos = 0;
+    private static String groupId;
+    private static FragmentManager context;
 
 
-    public QuestionAdapter(ArrayList<QuestionItem> questionList) {
+    public QuestionAdapter(ArrayList<QuestionItem> questionList, String groupId, FragmentManager context) {
         this.mQuestionList = questionList;
+        this.groupId=groupId;
+        this.context=context;
+
     }
 
 
@@ -62,58 +75,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             lastChecked = holder.mSwitch;
             lastCheckedPos = position;
         }
-//        holder.mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if(isChecked) {
-//                    for (int i=0; i<mQuestionList.size();++i) {
-//                        final int j= i;
-//                        mQuestionList.get(i).setActive(false);
-//                        questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                for (DataSnapshot item : dataSnapshot.getChildren()){
-//                                    if( item.child("question").getValue().toString().equals(mQuestionList.get(j).question)) {
-//                                        String key = item.getKey();
-//                                        questionsReference.child(key).child("active").setValue("false");
-//                                    }
-//
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                            }
-//                        });
-//                    }
-//                    //holder.mSwitch.setChecked(isChecked);
-//                    mQuestionList.get(position).setActive(true);
-//                    questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            for (DataSnapshot item : dataSnapshot.getChildren()){
-//                                if( item.child("question").getValue().toString().equals(currentItem.question)) {
-//                                    String key = item.getKey();
-//                                    if(item.child("active").getValue().toString().equals("false"))
-//                                    questionsReference.child(key).child("active").setValue("true");
-//                                    else{
-//                                        questionsReference.child(key).child("active").setValue("false");
-//                                    }
-//
-//                                }
-//
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//                }
-//            }
-//        });
+
         holder.mSwitch.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -184,11 +146,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
 
 
-
-
-
-
-
     @Override
     public int getItemCount() {
         return mQuestionList.size();
@@ -201,7 +158,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         private CheckBox mSwitch;
 
 
-        public QuestionViewHolder(@NonNull View itemView) {
+        public QuestionViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             mQuestion = itemView.findViewById(R.id.QuestionTextView);
@@ -213,6 +170,17 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
+                        FragmentTransaction fr = context.beginTransaction();
+                        Fragment f = new AnswerResultFragment();
+                        fr.replace(R.id.fragment_container,f);
+                        Bundle args = new Bundle();
+                        args.putString("question",mQuestion.getText().toString());
+                        args.putString("groupId", groupId);
+                        f.setArguments(args);
+                        fr.commit();
+
+
+
 
                     }
 

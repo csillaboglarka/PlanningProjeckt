@@ -8,10 +8,10 @@ public class AnswerItem {
 
     public AnswerItem() {
     }
-    public AnswerItem(String name, String answer, String question) {
+    public AnswerItem(String name, String answer) {
         this.name = name;
         this.answer = answer;
-        this.question=question;
+
 
     }
 

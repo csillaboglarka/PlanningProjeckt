@@ -35,7 +35,6 @@ public class FragmentShow extends Fragment   {
     private RecyclerView.LayoutManager questionLayoutManager;
     private FloatingActionButton addNewQuestionButton;
     private ArrayList<QuestionItem> questionItems;
-    private Button showAnswers;
     private String groupId;
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference questionsReference = database.getReference().child("Questions");
@@ -47,19 +46,7 @@ public class FragmentShow extends Fragment   {
         final View v;
         v = inflater.inflate(R.layout.fragment_fragment_show, container, false);
         groupId = getArguments().getString("groupId");
-        showAnswers =v.findViewById(R.id.ViewAnswers);
-        showAnswers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fr = getFragmentManager().beginTransaction();
-                Fragment f = new AnswerResultFragment();
-                fr.replace(R.id.fragment_container,f);
-                Bundle args = new Bundle();
-                args.putString("groupId", groupId);
-                f.setArguments(args);
-                fr.commit();
-            }
-        });
+
         questionItems = new ArrayList<>();
         questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -83,7 +70,7 @@ public class FragmentShow extends Fragment   {
 
                 }
 
-                questionAdapter = new QuestionAdapter(questionItems);
+                questionAdapter = new QuestionAdapter(questionItems,groupId,getFragmentManager());
                 questionsRecyclerView = v.findViewById(R.id.questionListRecyclerView);
                 questionLayoutManager = new LinearLayoutManager(getActivity());
                 questionsRecyclerView.setLayoutManager(questionLayoutManager);
@@ -127,7 +114,7 @@ public class FragmentShow extends Fragment   {
         });
         this.questionsRecyclerView =v.findViewById(R.id.questionListRecyclerView);
         questionLayoutManager = new LinearLayoutManager(getActivity());
-        questionAdapter = new QuestionAdapter(questionItems);
+        questionAdapter = new QuestionAdapter(questionItems,groupId,getFragmentManager());
         questionsRecyclerView.setLayoutManager(questionLayoutManager);
         questionsRecyclerView.setAdapter(questionAdapter);
         questionsRecyclerView.setHasFixedSize(true);

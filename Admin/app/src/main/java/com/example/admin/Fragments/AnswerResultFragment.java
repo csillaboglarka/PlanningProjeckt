@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -30,7 +31,8 @@ public class AnswerResultFragment extends Fragment {
     private RecyclerView.Adapter answerAdapter;
     private RecyclerView answerRecyclerView;
     private RecyclerView.LayoutManager answerLayoutManager;
-    private String groupId;
+    private String groupId,mQuestion;
+    private TextView Questiontxt;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,6 +40,9 @@ public class AnswerResultFragment extends Fragment {
         final View v;
         v = inflater.inflate(R.layout.fragment_answer_result, container, false);
         groupId = getArguments().getString("groupId");
+        mQuestion=getArguments().getString("question");
+        Questiontxt=v.findViewById(R.id.QuestionTextView);
+        Questiontxt.setText(mQuestion);
         mAnswers = new ArrayList<>();
         // az adatbazisbol az osszes kerdesre adott valaszt kilistazza ugyanabbol a csoportbol es majd feltolti recycleviewt
         answerRef.addValueEventListener(new ValueEventListener() {
@@ -45,11 +50,12 @@ public class AnswerResultFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     String id = item.child("groupId").getValue().toString();
-                    if (id.equals(groupId)) {
+                    String sQuestion=item.child("question").getValue().toString();
+                    if (id.equals(groupId) && sQuestion.equals(mQuestion)) {
                             String name = item.child("name").getValue().toString();
                             String  answer = item.child("answer").getValue().toString();
-                            String question = item.child("question").getValue().toString();
-                            AnswerItem q1 = new AnswerItem(name,answer,question);
+
+                            AnswerItem q1 = new AnswerItem(name,answer);
                             mAnswers.add(q1);
                             }
                 }

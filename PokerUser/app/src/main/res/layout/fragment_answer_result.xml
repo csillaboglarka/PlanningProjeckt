@@ -35,5 +35,9 @@
             android:scrollbars="vertical" />
 
     </RelativeLayout>
+    <include
+        android:id="@+id/llProgressBar"
+        android:visibility="gone"
+        layout="@layout/layout_progress_bar_with_text"/>
 
 </FrameLayout>

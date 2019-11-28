@@ -19,13 +19,6 @@
             android:layout_centerVertical="true"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/QuestionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/question"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
 
             <TextView
 

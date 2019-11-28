@@ -32,12 +32,15 @@ public class AnswerResultFragment extends Fragment {
     private RecyclerView.LayoutManager answerLayoutManager;
     private String groupId,question;
     private TextView Questiontxtv;
+    private View llProgressBar;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         final View v;
         v = inflater.inflate(R.layout.fragment_answer_result, container, false);
+        llProgressBar= v.findViewById(R.id.llProgressBar);
+        llProgressBar.setVisibility(View.VISIBLE);
         groupId = getArguments().getString("groupId");
         question=getArguments().getString("question");
         Questiontxtv=v.findViewById(R.id.QuestionTextView);
@@ -64,6 +67,7 @@ public class AnswerResultFragment extends Fragment {
                 answerRecyclerView.setLayoutManager(answerLayoutManager);
                 answerRecyclerView.setAdapter(answerAdapter);
                 answerRecyclerView .setHasFixedSize(true);
+                llProgressBar.setVisibility(View.GONE);
 
             }
 

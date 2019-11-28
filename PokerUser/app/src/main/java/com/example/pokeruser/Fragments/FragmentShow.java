@@ -1,8 +1,5 @@
 package com.example.pokeruser.Fragments;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -42,13 +39,16 @@ public class FragmentShow extends Fragment {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference questionsReference = database.getReference().child("Questions");
     private static DatabaseReference answerReference = database.getReference().child("Answers");
+    private View llProgressBar,cards;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View v;
         v = inflater.inflate(R.layout.fragment_fragment_show, container, false);
-
+        llProgressBar= v.findViewById(R.id.llProgressBar);
+        llProgressBar.setVisibility(View.VISIBLE);
+        cards=v.findViewById(R.id.cards);
         InitializeButtons(v);
         InitializeOnClickListeners();
         check=false;
@@ -57,10 +57,7 @@ public class FragmentShow extends Fragment {
         name = v.findViewById(R.id.currentUser);
         name.setText(uName);
         questionTextView = v.findViewById(R.id.QuestionTextView);
-
         getQuestion();
-
-
 
         return v;
     }
@@ -81,6 +78,7 @@ public class FragmentShow extends Fragment {
             @Override
             public void onClick( View v) {
                 exists=false;
+                llProgressBar.setVisibility(View.VISIBLE);
                 answerReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -96,10 +94,16 @@ public class FragmentShow extends Fragment {
                             String newKey = answerReference.push().getKey();
                             if (newKey != null) {
                                 answerReference.child(newKey).setValue(my);
+                                questionTextView.setText("Your answer was submited succesfully");
+                                cards.setVisibility(View.GONE);
+                                answButton.setVisibility(View.GONE);
+                                llProgressBar.setVisibility(View.GONE);
                             }
                         }
                         else {
+                            llProgressBar.setVisibility(View.GONE);
                             Toast.makeText(getContext(),"Mar volt valaszolva",Toast.LENGTH_SHORT).show();
+
                         }
                     }
 
@@ -109,6 +113,8 @@ public class FragmentShow extends Fragment {
 
                     }
                 });
+
+
 
             }
         });
@@ -324,6 +330,7 @@ public class FragmentShow extends Fragment {
 
                 }
                 questionTextView.setText(question);
+                llProgressBar.setVisibility(View.GONE);
 
             }
 
