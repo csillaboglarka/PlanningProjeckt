@@ -105,30 +105,20 @@ public class FragmentShow extends Fragment   {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Add new question");
                 final EditText question = new EditText(getContext());
-                final Switch active = new Switch(getContext());
                 LinearLayout layout = new LinearLayout(getContext());
                 layout.setOrientation(LinearLayout.VERTICAL);
                 layout.addView(question);
-                layout.addView(active);
                 builder.setView(layout);
                 builder.setPositiveButton("add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String questionDesc = question.getText().toString();
-                        Log.i("fbdb",String.valueOf(active.isChecked()));
-                        if(active.isChecked()){
-                            boolean active = true;
-                            applyQuestion(questionDesc,active);
-                            QuestionItem q= new QuestionItem(questionDesc,active);
-                             FirebaseDataHelper.Instance.InsertQuestion(q,groupId);}
-                        else {
-                            boolean active = false;
-                            applyQuestion(questionDesc,active);
-                            QuestionItem q= new QuestionItem(questionDesc,active);
-                            FirebaseDataHelper.Instance.InsertQuestion(q,groupId);
-                        }
+                        applyQuestion(questionDesc,false);
+                        QuestionItem q= new QuestionItem(questionDesc,false);
+                        FirebaseDataHelper.Instance.InsertQuestion(q,groupId);}
 
-                    }
+
+
                 });
 
                 builder.show();

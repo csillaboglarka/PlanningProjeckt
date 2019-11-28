@@ -28,4 +28,12 @@ public class QuestionItem {
     public String getGroupId() {
         return groupId;
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

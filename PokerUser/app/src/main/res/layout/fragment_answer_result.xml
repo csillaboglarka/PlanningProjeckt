@@ -9,9 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/QuestionTextView"
+            android:text="@string/question"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+
       
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/QuestionTextView"
             android:id="@+id/questionListRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

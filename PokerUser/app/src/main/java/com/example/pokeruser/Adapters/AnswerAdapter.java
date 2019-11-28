@@ -39,7 +39,6 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
     @Override
     public void onBindViewHolder(@NonNull AnswerViewHolder holder, int position) {
         AnswerItem currentItem = mAnswerList.get(position);
-        holder.mQuestion.setText(currentItem.question);
         holder.nametext.setText(currentItem.name);
         holder.value.setText(currentItem.answer);
 
@@ -53,7 +52,6 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
 
     public static class AnswerViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mQuestion;
         TextView nametext;
         Button value;
 
@@ -61,7 +59,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
         private AnswerViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mQuestion = itemView.findViewById(R.id.QuestionTextView);
+
             nametext = itemView.findViewById(R.id.myNames);
             value=itemView.findViewById(R.id.AnswerButton);
 

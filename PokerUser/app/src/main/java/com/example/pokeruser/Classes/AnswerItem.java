@@ -6,20 +6,20 @@ public class AnswerItem {
     public String groupId;
     public String question;
 
-    public AnswerItem() {
-    }
-    public AnswerItem(String name, String answer, String question) {
+
+
+    public AnswerItem(String name, String answer) {
         this.name = name;
         this.answer = answer;
-        this.question=question;
+
 
     }
 
-    public AnswerItem(String name, String answer,String groupId, String question) {
+    public AnswerItem(String name, String answer,String groupId,String question) {
         this.name = name;
         this.answer = answer;
-        this.question=question;
         this.groupId=groupId;
+        this.question=question;
 
     }
 
@@ -31,13 +31,6 @@ public class AnswerItem {
         this.groupId = groupId;
     }
 
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
 
     public String getName() {
         return name;

@@ -44,7 +44,7 @@
 
         </LinearLayout>
 
-        <Switch
+        <CheckBox
             android:id="@+id/simpleSwitch"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
