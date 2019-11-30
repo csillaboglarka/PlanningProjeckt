@@ -21,7 +21,10 @@
             android:layout_margin="10dp"
             android:textColor="@color/colorPrimaryDark"
             />
-
+        <include
+            android:id="@+id/llProgressBar"
+            android:visibility="gone"
+            layout="@layout/layout_progress_bar_with_text"/>
       
 
         <androidx.recyclerview.widget.RecyclerView

@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.admin.Adapter.AnswerAdapter;
 import com.example.admin.Classes.AnswerItem;
 import com.example.admin.R;
@@ -33,42 +32,52 @@ public class AnswerResultFragment extends Fragment {
     private RecyclerView.Adapter answerAdapter;
     private RecyclerView answerRecyclerView;
     private RecyclerView.LayoutManager answerLayoutManager;
-    private String groupId,mQuestion;
+    private String groupId, mQuestion;
     private TextView Questiontxt;
+    private View llProgressBar;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         final View v;
         v = inflater.inflate(R.layout.fragment_answer_result, container, false);
+        llProgressBar= v.findViewById(R.id.llProgressBar);
+        llProgressBar.setVisibility(View.VISIBLE);
         groupId = getArguments().getString("groupId");
-        mQuestion=getArguments().getString("question");
-        Questiontxt=v.findViewById(R.id.QuestionTextView);
+        mQuestion = getArguments().getString("question");
+        Questiontxt = v.findViewById(R.id.QuestionTextView);
         Questiontxt.setText(mQuestion);
         mAnswers = new ArrayList<>();
         // az adatbazisbol az osszes kerdesre adott valaszt kilistazza ugyanabbol a csoportbol es majd feltolti recycleviewt
         answerRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                mAnswers.clear();
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
+
                     String id = item.child("groupId").getValue().toString();
-                    String sQuestion=item.child("question").getValue().toString();
+                    String sQuestion = item.child("question").getValue().toString();
+
                     if (id.equals(groupId) && sQuestion.equals(mQuestion)) {
-                            String name = item.child("name").getValue().toString();
-                            String  answer = item.child("answer").getValue().toString();
-                            AnswerItem q1 = new AnswerItem(name,answer);
-                            mAnswers.add(q1);
-                            }
-                }
-                if(mAnswers.size()==0) {
-                    Toast.makeText(getContext(),"Nincsenek meg valaszok erre a kerdesre",Toast.LENGTH_LONG).show();;
+
+                        String name = item.child("name").getValue().toString();
+                        String answer = item.child("answer").getValue().toString();
+                        AnswerItem i1= new AnswerItem(name,answer);
+                        mAnswers.add(i1);
+
+                    }
                 }
                 answerAdapter = new AnswerAdapter(mAnswers);
                 answerRecyclerView = v.findViewById(R.id.questionListRecyclerView);
                 answerLayoutManager = new LinearLayoutManager(getActivity());
                 answerRecyclerView.setLayoutManager(answerLayoutManager);
                 answerRecyclerView.setAdapter(answerAdapter);
-                answerRecyclerView .setHasFixedSize(true);
+                answerRecyclerView.setHasFixedSize(true);
+                llProgressBar.setVisibility(View.GONE);
+                if(mAnswers.isEmpty()) {
+                    Toast.makeText(getContext(),"Nincsenek valaszok erre a kerdesre",Toast.LENGTH_LONG).show();;
+                }
+
 
             }
 
@@ -77,6 +86,12 @@ public class AnswerResultFragment extends Fragment {
 
             }
         });
+
+
+
         return v;
+
     }
+
+
 }

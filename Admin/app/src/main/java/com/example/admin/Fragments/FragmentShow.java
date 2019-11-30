@@ -41,13 +41,15 @@ public class FragmentShow extends Fragment   {
     private String groupId;
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference questionsReference = database.getReference().child("Questions");
-
+    private View llProgressBar;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         final View v;
         v = inflater.inflate(R.layout.fragment_fragment_show, container, false);
+        llProgressBar= v.findViewById(R.id.llProgressBar);
+        llProgressBar.setVisibility(View.VISIBLE);
         groupId = getArguments().getString("groupId");
 
         questionItems = new ArrayList<>();
@@ -79,6 +81,7 @@ public class FragmentShow extends Fragment   {
                 questionsRecyclerView.setLayoutManager(questionLayoutManager);
                 questionsRecyclerView.setAdapter(questionAdapter);
                 questionsRecyclerView.setHasFixedSize(true);
+                llProgressBar.setVisibility(View.GONE);
 
             }
 
@@ -114,6 +117,7 @@ public class FragmentShow extends Fragment   {
                 });
 
                 builder.show();
+
             }
 
         });

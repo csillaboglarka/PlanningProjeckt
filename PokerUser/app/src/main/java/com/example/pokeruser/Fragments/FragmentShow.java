@@ -98,6 +98,7 @@ public class FragmentShow extends Fragment {
                                 cards.setVisibility(View.GONE);
                                 answButton.setVisibility(View.GONE);
                                 llProgressBar.setVisibility(View.GONE);
+                                showAnswers.setVisibility(View.VISIBLE);
                             }
                         }
                         else {
