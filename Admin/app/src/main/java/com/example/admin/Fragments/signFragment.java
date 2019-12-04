@@ -46,12 +46,18 @@ public class signFragment extends Fragment {
             public void onClick(View view) {
              //   Intent intent = new Intent(view.getContext(), FragmentShow.class);
                 id =groupid.getText().toString();
+                if(id.isEmpty()){
+                    groupid.setError("Please enter a group id");
+                }
+                else {
+                    groupid.setError(null);
                 adminReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for(DataSnapshot item: dataSnapshot.getChildren()){
                             if(item.child("groupId").getValue().equals(id)) {
-                                Toast.makeText(getContext(),"Mar letezik ilyen csoport",Toast.LENGTH_SHORT).show();
+                                groupid.setError("Already exists");
+
                             }
                             else {
                                 String key2 = FirebaseDataHelper.Instance.CreateNewGroup(id);
@@ -73,7 +79,7 @@ public class signFragment extends Fragment {
                     }
                 });
 
-            }
+            } }
         });
 
 

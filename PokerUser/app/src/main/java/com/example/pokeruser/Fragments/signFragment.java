@@ -39,9 +39,15 @@ public class signFragment extends Fragment {
         openID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String id =groupid.getText().toString();
                 String myName = uName.getText().toString();
-                connectSession(id,myName);
+                if(myName.isEmpty()) {
+                    uName.setError("Please enter your name");
+                }
+                else {
+                    connectSession(id, myName);
+                }
 
             }
         });

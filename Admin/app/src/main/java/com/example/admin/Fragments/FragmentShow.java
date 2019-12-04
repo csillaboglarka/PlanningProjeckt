@@ -108,10 +108,20 @@ public class FragmentShow extends Fragment   {
                 builder.setPositiveButton("add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        question.setError(null);
+                        boolean cancel = false;
+                        View focusView = null;
                         String questionDesc = question.getText().toString();
-                        applyQuestion(questionDesc,false);
-                        QuestionItem q= new QuestionItem(questionDesc,false);
-                        FirebaseDataHelper.Instance.InsertQuestion(q,groupId);}
+                        if(questionDesc.isEmpty()) {
+                            question.setError("Please Enter Event Name.");
+                            return;
+                        }
+                        else {
+                            applyQuestion(questionDesc, false);
+                            QuestionItem q = new QuestionItem(questionDesc, false);
+                            FirebaseDataHelper.Instance.InsertQuestion(q, groupId);
+                        }
+                    }
 
 
 

@@ -77,46 +77,51 @@ public class FragmentShow extends Fragment {
         answButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( View v) {
-                exists=false;
-                llProgressBar.setVisibility(View.VISIBLE);
-                answerReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot item: dataSnapshot.getChildren()) {
-                            if(item.child("name").getValue().toString().equals(uName) &&
-                                    item.child("question").getValue().toString().equals(question) &&
-                                    item.child("groupId").getValue().toString().equals(groupId)) {
-                                exists=true;
+                if(answer==null) {
+                    Toast.makeText(v.getContext(),"Please chose one card",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    exists = false;
+                    llProgressBar.setVisibility(View.VISIBLE);
+                    answerReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot item : dataSnapshot.getChildren()) {
+                                if (item.child("name").getValue().toString().equals(uName) &&
+                                        item.child("question").getValue().toString().equals(question) &&
+                                        item.child("groupId").getValue().toString().equals(groupId)) {
+                                    exists = true;
+                                }
                             }
-                        }
-                        if(!exists) {
-                            AnswerItem my = new AnswerItem(uName, answer, groupId, question);
-                            String newKey = answerReference.push().getKey();
-                            if (newKey != null) {
-                                answerReference.child(newKey).setValue(my);
-                                questionTextView.setText("Your answer was submited succesfully");
-                                cards.setVisibility(View.GONE);
-                                answButton.setVisibility(View.GONE);
+                            if (!exists) {
+
+                                AnswerItem my = new AnswerItem(uName, answer, groupId, question);
+                                String newKey = answerReference.push().getKey();
+                                if (newKey != null) {
+                                    answerReference.child(newKey).setValue(my);
+                                    questionTextView.setText("Your answer was submited succesfully");
+                                    cards.setVisibility(View.GONE);
+                                    answButton.setVisibility(View.GONE);
+                                    llProgressBar.setVisibility(View.GONE);
+                                    showAnswers.setVisibility(View.VISIBLE);
+                                }
+
+                            } else {
                                 llProgressBar.setVisibility(View.GONE);
-                                showAnswers.setVisibility(View.VISIBLE);
+                                Toast.makeText(getContext(), "Mar volt valaszolva", Toast.LENGTH_SHORT).show();
+
                             }
                         }
-                        else {
-                            llProgressBar.setVisibility(View.GONE);
-                            Toast.makeText(getContext(),"Mar volt valaszolva",Toast.LENGTH_SHORT).show();
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
-                    }
+                    });
 
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-
-
+                }
             }
         });
 
