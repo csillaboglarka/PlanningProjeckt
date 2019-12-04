@@ -56,6 +56,7 @@ public class FragmentShow extends Fragment   {
         questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                questionItems.clear();
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     String txt = item.child("groupId").getValue().toString();
 
@@ -75,7 +76,7 @@ public class FragmentShow extends Fragment   {
 
                 }
 
-                questionAdapter = new QuestionAdapter(questionItems,groupId,getFragmentManager());
+                questionAdapter = new QuestionAdapter(questionItems,groupId,getFragmentManager(),getContext());
                 questionsRecyclerView = v.findViewById(R.id.questionListRecyclerView);
                 questionLayoutManager = new LinearLayoutManager(getActivity());
                 questionsRecyclerView.setLayoutManager(questionLayoutManager);
@@ -123,7 +124,7 @@ public class FragmentShow extends Fragment   {
         });
         this.questionsRecyclerView =v.findViewById(R.id.questionListRecyclerView);
         questionLayoutManager = new LinearLayoutManager(getActivity());
-        questionAdapter = new QuestionAdapter(questionItems,groupId,getFragmentManager());
+        questionAdapter = new QuestionAdapter(questionItems,groupId,getFragmentManager(),getContext());
         questionsRecyclerView.setLayoutManager(questionLayoutManager);
         questionsRecyclerView.setAdapter(questionAdapter);
         questionsRecyclerView.setHasFixedSize(true);

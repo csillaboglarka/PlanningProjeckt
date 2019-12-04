@@ -2,6 +2,8 @@ package com.example.admin.Adapter;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -38,13 +41,14 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     private static CheckBox lastChecked = null;
     private static int lastCheckedPos = 0;
     private static String groupId;
-    private static FragmentManager context;
+    private static FragmentManager frag;
+    private static Context context;
 
-
-    public QuestionAdapter(ArrayList<QuestionItem> questionList, String groupId, FragmentManager context) {
+    public QuestionAdapter(ArrayList<QuestionItem> questionList, String groupId, FragmentManager frag, Context context) {
         this.mQuestionList = questionList;
         this.groupId=groupId;
         this.context=context;
+        this.frag=frag;
 
     }
 
@@ -81,27 +85,61 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             @Override
             public void onClick(View v)
             {
-                CheckBox cb = (CheckBox)v;
-                int clickedPos = ((Integer)cb.getTag()).intValue();
+               final CheckBox cb = (CheckBox)v;
+                AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
+                builder.setTitle("are you sure");
+                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                if(cb.isChecked())
-                {
-                    if(lastChecked != null)
-                    {
-                        lastChecked.setChecked(false);
-                        mQuestionList.get(lastCheckedPos).setActive(false);
-                        final String q =mQuestionList.get(lastCheckedPos).question;
+                        int clickedPos = ((Integer)cb.getTag()).intValue();
+
+                        if(cb.isChecked())
+                        {
+                            if(lastChecked != null)
+                            {
+                                lastChecked.setChecked(false);
+                                mQuestionList.get(lastCheckedPos).setActive(false);
+                                final String q =mQuestionList.get(lastCheckedPos).question;
+                                questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for(DataSnapshot item : dataSnapshot.getChildren()) {
+
+                                            if (item.child("question").getValue().toString().equals(q)) {
+                                                String key = item.getKey();
+                                                questionsReference.child(key).child("active").setValue("false");
+                                            }
+
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+
+                            lastChecked = cb;
+                            lastCheckedPos = clickedPos;
+                        }
+                        else
+                            lastChecked = null;
+                        mQuestionList.get(clickedPos).setActive(cb.isChecked());
                         questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for(DataSnapshot item : dataSnapshot.getChildren()) {
-
-                                    if (item.child("question").getValue().toString().equals(q)) {
+                                    if (item.child("question").getValue().toString().equals(mQuestionList.get(position).question)) {
                                         String key = item.getKey();
-                                        questionsReference.child(key).child("active").setValue("false");
+                                        if(item.child("active").getValue().toString().equals("false"))
+                                            questionsReference.child(key).child("active").setValue("true");
+                                        else {
+                                            questionsReference.child(key).child("active").setValue("false");
+                                        }
                                     }
-
-
                                 }
                             }
 
@@ -111,33 +149,17 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                             }
                         });
                     }
-
-                    lastChecked = cb;
-                    lastCheckedPos = clickedPos;
-                }
-                else
-                    lastChecked = null;
-                mQuestionList.get(clickedPos).setActive(cb.isChecked());
-                questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot item : dataSnapshot.getChildren()) {
-                            if (item.child("question").getValue().toString().equals(mQuestionList.get(position).question)) {
-                                String key = item.getKey();
-                                if(item.child("active").getValue().toString().equals("false"))
-                                    questionsReference.child(key).child("active").setValue("true");
-                                else {
-                                    questionsReference.child(key).child("active").setValue("false");
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    public void onClick(DialogInterface dialog, int which) {
+                        lastChecked.setChecked(true);
+                        cb.setChecked(false);
 
                     }
                 });
+                builder.show();
+
             }
         });
     }
@@ -170,7 +192,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        FragmentTransaction fr = context.beginTransaction();
+                        FragmentTransaction fr = frag.beginTransaction();
                         Fragment f = new AnswerResultFragment();
                         fr.addToBackStack(null);
                         fr.replace(R.id.fragment_container,f);
@@ -193,17 +215,3 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     }
 }
-        //            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//                @Override
-//                public boolean onLongClick(View v) {
-//                    if (listener != null) {
-//                        int position = getAdapterPosition();
-//                        if (position != RecyclerView.NO_POSITION) {
-//                            listener.onLongPress(position);
-//                        }
-//                    }
-//
-//                    return true;
-//                }
-//            });
-

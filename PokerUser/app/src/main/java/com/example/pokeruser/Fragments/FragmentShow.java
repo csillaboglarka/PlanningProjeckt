@@ -83,11 +83,11 @@ public class FragmentShow extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot item: dataSnapshot.getChildren()) {
-                            if(item.child("name").getValue().toString().equals(uName) && item.child("question").getValue().toString().equals(question) && item.child("groupId").getValue().toString().equals(groupId)) {
+                            if(item.child("name").getValue().toString().equals(uName) &&
+                                    item.child("question").getValue().toString().equals(question) &&
+                                    item.child("groupId").getValue().toString().equals(groupId)) {
                                 exists=true;
                             }
-
-
                         }
                         if(!exists) {
                             AnswerItem my = new AnswerItem(uName, answer, groupId, question);
