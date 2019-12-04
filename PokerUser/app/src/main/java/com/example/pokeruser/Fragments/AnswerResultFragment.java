@@ -31,7 +31,7 @@ public class AnswerResultFragment extends Fragment {
     private RecyclerView answerRecyclerView;
     private RecyclerView.LayoutManager answerLayoutManager;
     private String groupId,question;
-    private TextView Questiontxtv;
+    private TextView textViewQuestion;
     private View llProgressBar;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,10 +43,11 @@ public class AnswerResultFragment extends Fragment {
         llProgressBar.setVisibility(View.VISIBLE);
         groupId = getArguments().getString("groupId");
         question=getArguments().getString("question");
-        Questiontxtv=v.findViewById(R.id.QuestionTextView);
-        Questiontxtv.setText(question);
+        textViewQuestion =v.findViewById(R.id.QuestionTextView);
+        textViewQuestion.setText(question);
         mAnswers = new ArrayList<>();
-        // az adatbazisbol az osszes kerdesre adott valaszt kilistazza ugyanabbol a csoportbol es majd feltolti recycleviewt
+        // az adatbazisbol az osszes adott valaszt
+        // kilistazza ugyanabbol a csoportbol a valaszolt kerdesre majd feltolti recycleviewt
         answerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

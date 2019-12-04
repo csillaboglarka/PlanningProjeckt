@@ -14,4 +14,6 @@
     <string name="question">Question</string>
     <string name="value">Value</string>
     <string name="answer">Answer</string>
+    <string name="success_answer">Your answer was submited successfully</string>
+    <string name="answer_exists">You answered already</string>
 </resources>

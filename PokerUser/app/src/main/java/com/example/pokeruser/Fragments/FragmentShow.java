@@ -23,23 +23,18 @@ import com.google.firebase.database.ValueEventListener;
 
 public class FragmentShow extends Fragment {
 
-
-    private Button showAnswers;
-    private String groupId;
-    private String uName;
-    private String answer;
-    private String question;
+    private Button btnShowAnswers;
+    private String groupId, uName, answer, question;
     private TextView name;
     private CardView first,second,third,forth,fivth,sixth;
-    private Button answButton;
-    private TextView questionTextView;
-    private static boolean check;
-    private static boolean exists;
-    private CardView lastcheckd;
+    private Button btn_Answer;
+    private TextView textViewQuestion;
+    private static boolean check,exists;
+    private CardView cardViewLastChecked;
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference questionsReference = database.getReference().child("Questions");
     private static DatabaseReference answerReference = database.getReference().child("Answers");
-    private View llProgressBar,cards;
+    private View llProgressBar, view_cards;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,22 +43,22 @@ public class FragmentShow extends Fragment {
         v = inflater.inflate(R.layout.fragment_fragment_show, container, false);
         llProgressBar= v.findViewById(R.id.llProgressBar);
         llProgressBar.setVisibility(View.VISIBLE);
-        cards=v.findViewById(R.id.cards);
-        InitializeButtons(v);
-        InitializeOnClickListeners();
         check=false;
+        view_cards =v.findViewById(R.id.cards);
         groupId = getArguments().getString("groupId");
         uName = getArguments().getString("Name");
         name = v.findViewById(R.id.currentUser);
+        textViewQuestion = v.findViewById(R.id.QuestionTextView);
+        InitializeButtons(v);
+        InitializeOnClickListeners();
         name.setText(uName);
-        questionTextView = v.findViewById(R.id.QuestionTextView);
         getQuestion();
 
         return v;
     }
     private void InitializeButtons(View v) {
-        showAnswers = v.findViewById(R.id.result);
-        answButton = v.findViewById(R.id.AnswerButton);
+        btnShowAnswers = v.findViewById(R.id.result);
+        btn_Answer = v.findViewById(R.id.AnswerButton);
         first=v.findViewById(R.id.one);
         second=v.findViewById(R.id.five);
         third=v.findViewById(R.id.ten);
@@ -74,7 +69,8 @@ public class FragmentShow extends Fragment {
 
     }
     private void  InitializeOnClickListeners() {
-        answButton.setOnClickListener(new View.OnClickListener() {
+        //elkuldi a valaszt, ellenorzi ha nem valaszt semmit vagy mar valaszolt arra a kerdesre
+        btn_Answer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( View v) {
                 if(answer==null) {
@@ -90,25 +86,26 @@ public class FragmentShow extends Fragment {
                                 if (item.child("name").getValue().toString().equals(uName) &&
                                         item.child("question").getValue().toString().equals(question) &&
                                         item.child("groupId").getValue().toString().equals(groupId)) {
-                                    exists = true;
+                                        exists = true; //mar valaszolt
+
                                 }
                             }
                             if (!exists) {
-
+                                //akkor ha nem valaszolt letrehoz egy uj valaszt
                                 AnswerItem my = new AnswerItem(uName, answer, groupId, question);
                                 String newKey = answerReference.push().getKey();
                                 if (newKey != null) {
                                     answerReference.child(newKey).setValue(my);
-                                    questionTextView.setText("Your answer was submited succesfully");
-                                    cards.setVisibility(View.GONE);
-                                    answButton.setVisibility(View.GONE);
+                                    textViewQuestion.setText(R.string.success_answer);
+                                    view_cards.setVisibility(View.GONE);
+                                    btn_Answer.setVisibility(View.GONE);
                                     llProgressBar.setVisibility(View.GONE);
-                                    showAnswers.setVisibility(View.VISIBLE);
+                                    btnShowAnswers.setVisibility(View.VISIBLE);
                                 }
 
                             } else {
                                 llProgressBar.setVisibility(View.GONE);
-                                Toast.makeText(getContext(), "Mar volt valaszolva", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), R.string.answer_exists, Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -126,7 +123,7 @@ public class FragmentShow extends Fragment {
         });
 
         //Az eredmenyeket tudjuk megnezni
-        showAnswers.setOnClickListener(new View.OnClickListener() {
+        btnShowAnswers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fr = getFragmentManager().beginTransaction();
@@ -140,15 +137,16 @@ public class FragmentShow extends Fragment {
                 fr.commit();
             }
         });
+        // a kartyakat nezi
         first.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(check) {
-                    lastcheckd.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
+                    cardViewLastChecked.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
                     if(first.getBackgroundTintList().equals(ColorStateList.valueOf(Color.parseColor("#181825")))){
                     first.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
 
-                    lastcheckd=first;
+                    cardViewLastChecked =first;
                     check=true;
                     TextView val=first.findViewById(R.id.value);
                     answer=val.getText().toString();
@@ -157,7 +155,7 @@ public class FragmentShow extends Fragment {
                     }
                     else {
                         first.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
-                        lastcheckd=null;
+                        cardViewLastChecked =null;
                         check=false;
                         answer=null;
                     }
@@ -167,7 +165,7 @@ public class FragmentShow extends Fragment {
                     answer=val.getText().toString();
                     check=true;
                     first.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                    lastcheckd=first;
+                    cardViewLastChecked =first;
                 }
 
             }
@@ -176,17 +174,17 @@ public class FragmentShow extends Fragment {
             @Override
             public void onClick(View v) {
                 if(check) {
-                    lastcheckd.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
+                    cardViewLastChecked.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
                     if(second.getBackgroundTintList().equals(ColorStateList.valueOf(Color.parseColor("#181825")))){
                         second.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                        lastcheckd=second;
+                        cardViewLastChecked =second;
                         check=true;
                         TextView val=second.findViewById(R.id.value2);
                         answer=val.getText().toString();
                     }
                     else {
                         second.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
-                        lastcheckd=null;
+                        cardViewLastChecked =null;
                         check=false;
                         answer=null;
                     }
@@ -194,7 +192,7 @@ public class FragmentShow extends Fragment {
                 else {
                     check=true;
                     second.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                    lastcheckd=second;
+                    cardViewLastChecked =second;
                     TextView val=second.findViewById(R.id.value2);
                     answer=val.getText().toString();
                 }
@@ -204,17 +202,17 @@ public class FragmentShow extends Fragment {
             @Override
             public void onClick(View v) {
                 if(check) {
-                    lastcheckd.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
+                    cardViewLastChecked.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
                     if(third.getBackgroundTintList().equals(ColorStateList.valueOf(Color.parseColor("#181825")))){
                         third.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                        lastcheckd=third;
+                        cardViewLastChecked =third;
                         check=true;
                         TextView val=third.findViewById(R.id.value3);
                         answer=val.getText().toString();
                     }
                     else {
                         third.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
-                        lastcheckd=null;
+                        cardViewLastChecked =null;
                         check=false;
                         answer=null;
                     }
@@ -222,7 +220,7 @@ public class FragmentShow extends Fragment {
                 else {
                     check=true;
                     third.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                    lastcheckd=third;
+                    cardViewLastChecked =third;
                     TextView val=third.findViewById(R.id.value3);
                     answer=val.getText().toString();
                 }
@@ -233,17 +231,17 @@ public class FragmentShow extends Fragment {
             @Override
             public void onClick(View v) {
                 if(check) {
-                    lastcheckd.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
+                    cardViewLastChecked.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
                     if(forth.getBackgroundTintList().equals(ColorStateList.valueOf(Color.parseColor("#181825")))){
                        forth.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                        lastcheckd=forth;
+                        cardViewLastChecked =forth;
                         check=true;
                         TextView val=forth.findViewById(R.id.value4);
                         answer=val.getText().toString();
                     }
                     else {
                         forth.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
-                        lastcheckd=null;
+                        cardViewLastChecked =null;
                         check=false;
                         answer=null;
                     }
@@ -251,7 +249,7 @@ public class FragmentShow extends Fragment {
                 else {
                     check=true;
                    forth.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                    lastcheckd=forth;
+                    cardViewLastChecked =forth;
                     TextView val=forth.findViewById(R.id.value4);
                     answer=val.getText().toString();
                 }
@@ -262,17 +260,17 @@ public class FragmentShow extends Fragment {
             @Override
             public void onClick(View v) {
                 if(check) {
-                    lastcheckd.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
+                    cardViewLastChecked.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
                     if(fivth.getBackgroundTintList().equals(ColorStateList.valueOf(Color.parseColor("#181825")))){
                         fivth.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                        lastcheckd=fivth;
+                        cardViewLastChecked =fivth;
                         check=true;
                         TextView val=fivth.findViewById(R.id.value5);
                         answer=val.getText().toString();
                     }
                     else {
                         fivth.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
-                        lastcheckd=null;
+                        cardViewLastChecked =null;
                         check=false;
                         answer=null;
                     }
@@ -280,7 +278,7 @@ public class FragmentShow extends Fragment {
                 else {
                     check=true;
                     fivth.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                    lastcheckd=fivth;
+                    cardViewLastChecked =fivth;
                     TextView val=fivth.findViewById(R.id.value5);
                     answer=val.getText().toString();
                 }
@@ -291,17 +289,17 @@ public class FragmentShow extends Fragment {
             @Override
             public void onClick(View v) {
                 if(check) {
-                    lastcheckd.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
+                    cardViewLastChecked.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
                     if(sixth.getBackgroundTintList().equals(ColorStateList.valueOf(Color.parseColor("#181825")))){
                         sixth.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                        lastcheckd=sixth;
+                        cardViewLastChecked =sixth;
                         check=true;
                         TextView val=sixth.findViewById(R.id.value6);
                         answer=val.getText().toString();
                     }
                     else {
                         sixth.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#181825")));
-                        lastcheckd=null;
+                        cardViewLastChecked =null;
                         check=false;
                         answer=null;
                     }
@@ -309,7 +307,7 @@ public class FragmentShow extends Fragment {
                 else {
                     check=true;
                     sixth.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E2132B")));
-                    lastcheckd=sixth;
+                    cardViewLastChecked =sixth;
                     TextView val=sixth.findViewById(R.id.value6);
                     answer=val.getText().toString();
                 }
@@ -318,10 +316,10 @@ public class FragmentShow extends Fragment {
         });
 
 
-
     }
+    // az aktualis aktiv kerdest tolti be az adatbazisbol
     private void  getQuestion() {
-        questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        questionsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot item: dataSnapshot.getChildren()){
@@ -336,7 +334,7 @@ public class FragmentShow extends Fragment {
 
 
                 }
-                questionTextView.setText(question);
+                textViewQuestion.setText(question);
                 llProgressBar.setVisibility(View.GONE);
 
             }
