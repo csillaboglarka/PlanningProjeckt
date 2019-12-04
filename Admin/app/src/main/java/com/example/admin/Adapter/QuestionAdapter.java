@@ -3,21 +3,14 @@ package com.example.admin.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -166,8 +159,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
 
 
-
-
     @Override
     public int getItemCount() {
         return mQuestionList.size();
@@ -176,7 +167,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     public static class QuestionViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mQuestion;
-       // public ImageView mDeleteQuestion;
         private CheckBox mSwitch;
 
 
@@ -201,9 +191,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                         args.putString("groupId", groupId);
                         f.setArguments(args);
                         fr.commit();
-
-
-
 
                     }
 

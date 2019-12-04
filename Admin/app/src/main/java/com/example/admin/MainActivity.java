@@ -1,20 +1,12 @@
 package com.example.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
-
 import com.example.admin.Fragments.signFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-
-
 
 
     @Override
