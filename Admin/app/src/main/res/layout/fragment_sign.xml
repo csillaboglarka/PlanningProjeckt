@@ -53,7 +53,7 @@
             android:id="@+id/open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/groupId"
+           android:layout_below="@id/groupId"
             android:backgroundTint="@color/colorPrimary"
             android:textColor="#eaf1e5"
             android:layout_marginTop="10dp"

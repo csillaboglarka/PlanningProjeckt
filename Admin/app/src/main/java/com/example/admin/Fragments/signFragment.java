@@ -66,7 +66,7 @@ public class signFragment extends Fragment {
 
                                 }
                                 else {
-                                    Toast.makeText(getActivity(),key2,Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(),id + " Sucessfully created",Toast.LENGTH_SHORT).show();
                                 }
 
                             }
