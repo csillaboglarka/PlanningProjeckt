@@ -21,9 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class signFragment extends Fragment {
-   private EditText groupid;
-   private Button openID;
-   private Button NewGroup;
+   private EditText editText_groupId;
+   private Button btn_openId;
+   private Button btn_newGroup;
    private boolean conSession;
    private FirebaseDatabase database = FirebaseDatabase.getInstance();
    private DatabaseReference adminReference = database.getReference().child("Groups");
@@ -33,30 +33,30 @@ public class signFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
        View v;
        v =inflater.inflate(R.layout.fragment_sign, container, false);
-        groupid = v.findViewById(R.id.groupId);
-        openID= v.findViewById(R.id.open);
-        NewGroup = v.findViewById(R.id.newfragment);
-
-        NewGroup.setOnClickListener(new View.OnClickListener() {
+        editText_groupId = v.findViewById(R.id.groupId);
+        btn_openId = v.findViewById(R.id.open);
+        btn_newGroup = v.findViewById(R.id.newfragment);
+        //uj csoport letrehozasa ,mar letezo ellenorzese
+        btn_newGroup.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-             //   Intent intent = new Intent(view.getContext(), FragmentShow.class);
-                id =groupid.getText().toString();
+
+                id = editText_groupId.getText().toString();
                 if(id.isEmpty()){
-                    groupid.setError("Please enter a group id");
+                    editText_groupId.setError("Please enter a group id");
                 }
                 else {
-                    groupid.setError(null);
+                    editText_groupId.setError(null);
                 adminReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for(DataSnapshot item: dataSnapshot.getChildren()){
                             if(item.child("groupId").getValue().equals(id)) {
-                                groupid.setError("Already exists");
+                                editText_groupId.setError("Already exists");
 
                             }
                             else {
@@ -82,11 +82,11 @@ public class signFragment extends Fragment {
             } }
         });
 
-
-       openID.setOnClickListener(new View.OnClickListener() {
+        // csoporthoz valo belepes
+       btn_openId.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               String id =groupid.getText().toString();
+               String id = editText_groupId.getText().toString();
                connectSession(id);
            }
        });
@@ -96,7 +96,8 @@ public class signFragment extends Fragment {
     private void connectSession(final String id) {
 
         conSession = false;
-
+        //itt keresi meg az adatbazisban ha letezik a csoport ha igen belep azaz uj oldalra visz
+        //ha nem errort kiir
         adminReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -109,7 +110,7 @@ public class signFragment extends Fragment {
                         fr.addToBackStack(null);
                         fr.replace(R.id.fragment_container,f);
                         Bundle args = new Bundle();
-                        args.putString("groupId",groupid.getText().toString());
+                        args.putString("groupId", editText_groupId.getText().toString());
                         f.setArguments(args);
                         fr.commit();
                         break;
@@ -117,7 +118,7 @@ public class signFragment extends Fragment {
                 }
                 if (!conSession )
                 {
-                    groupid.setError("Does not exist.");
+                    editText_groupId.setError("Does not exist.");
 
                 }
 

@@ -2,23 +2,20 @@ package com.example.admin.Fragments;
 
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Switch;
+
 import com.example.admin.Database.FirebaseDataHelper;
 import com.example.admin.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,7 +33,7 @@ public class FragmentShow extends Fragment   {
     private RecyclerView questionsRecyclerView;
     private QuestionAdapter questionAdapter;
     private RecyclerView.LayoutManager questionLayoutManager;
-    private FloatingActionButton addNewQuestionButton;
+    private FloatingActionButton btn_addNewQuestion;
     private ArrayList<QuestionItem> questionItems;
     private String groupId;
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -51,8 +48,8 @@ public class FragmentShow extends Fragment   {
         llProgressBar= v.findViewById(R.id.llProgressBar);
         llProgressBar.setVisibility(View.VISIBLE);
         groupId = getArguments().getString("groupId");
-
         questionItems = new ArrayList<>();
+        //az osszes kerdest kilistazza
         questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -91,8 +88,9 @@ public class FragmentShow extends Fragment   {
 
             }
         });
-        addNewQuestionButton = v.findViewById(R.id.AddNewQuestion);
-        addNewQuestionButton.setOnClickListener(new View.OnClickListener() {
+        //mikor uj kerdest addunk hozza ,a recyclerview-hoz hozzaadja
+        btn_addNewQuestion = v.findViewById(R.id.AddNewQuestion);
+        btn_addNewQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -109,17 +107,15 @@ public class FragmentShow extends Fragment   {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         question.setError(null);
-                        boolean cancel = false;
-                        View focusView = null;
-                        String questionDesc = question.getText().toString();
-                        if(questionDesc.isEmpty()) {
-                            question.setError("Please Enter Event Name.");
-                            return;
+                        String mQuestion = question.getText().toString();
+                        if(mQuestion.isEmpty()) {
+                            question.setError("Please Enter question.");
+
                         }
                         else {
-                            applyQuestion(questionDesc, false);
-                            QuestionItem q = new QuestionItem(questionDesc, false);
-                            FirebaseDataHelper.Instance.InsertQuestion(q, groupId);
+                            applyQuestion(mQuestion);
+                            QuestionItem questions = new QuestionItem(mQuestion, false);
+                            FirebaseDataHelper.Instance.InsertQuestion(questions, groupId);
                         }
                     }
 
@@ -143,8 +139,8 @@ public class FragmentShow extends Fragment   {
     }
 
 
-    private void applyQuestion(String question,Boolean active) {
-        questionItems.add(new QuestionItem(question,active));
+    private void applyQuestion(String question) {
+        questionItems.add(new QuestionItem(question,false));
         questionAdapter.notifyItemInserted(questionItems.size());
     }
 

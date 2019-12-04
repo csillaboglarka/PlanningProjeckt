@@ -16,4 +16,5 @@
     <string name="value">Value</string>
     <string name="answer">Answer</string>
     <string name="questions">Questions</string>
+    <string name="no_answers">No answers for this question</string>
 </resources>

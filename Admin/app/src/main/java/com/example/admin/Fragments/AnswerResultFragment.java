@@ -1,7 +1,6 @@
 package com.example.admin.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,7 @@ public class AnswerResultFragment extends Fragment {
     private RecyclerView answerRecyclerView;
     private RecyclerView.LayoutManager answerLayoutManager;
     private String groupId, mQuestion;
-    private TextView Questiontxt;
+    private TextView textViewQuestion;
     private View llProgressBar;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,10 +44,11 @@ public class AnswerResultFragment extends Fragment {
         llProgressBar.setVisibility(View.VISIBLE);
         groupId = getArguments().getString("groupId");
         mQuestion = getArguments().getString("question");
-        Questiontxt = v.findViewById(R.id.QuestionTextView);
-        Questiontxt.setText(mQuestion);
+        textViewQuestion = v.findViewById(R.id.QuestionTextView);
+        textViewQuestion.setText(mQuestion);
         mAnswers = new ArrayList<>();
-        // az adatbazisbol az osszes kerdesre adott valaszt kilistazza ugyanabbol a csoportbol es majd feltolti recycleviewt
+        // az adatbazisbol az osszes kerdesre adott valaszt kilistazza ugyanabbol a csoportbol
+        // es arra a kerdesre amelyiket valasztotta az admin majd feltolti recycleviewt
         answerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -75,7 +75,7 @@ public class AnswerResultFragment extends Fragment {
                 answerRecyclerView.setHasFixedSize(true);
                 llProgressBar.setVisibility(View.GONE);
                 if(mAnswers.isEmpty()) {
-                    Toast.makeText(getContext(),"Nincsenek valaszok erre a kerdesre",Toast.LENGTH_LONG).show();;
+                    Toast.makeText(getContext(),R.string.no_answers,Toast.LENGTH_LONG).show();;
                 }
 
 
