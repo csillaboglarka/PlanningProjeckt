@@ -17,10 +17,10 @@
       android:textSize="30sp"
       android:textColor="@color/colorPrimaryDark"
       android:text="@string/questions"
-      android:id="@+id/title"/>
+      android:id="@+id/myTitle"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_below="@id/title"
+            android:layout_below="@id/myTitle"
             android:id="@+id/questionListRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.admin.Database.FirebaseDataHelper;
 import com.example.admin.R;
@@ -39,6 +40,7 @@ public class FragmentShow extends Fragment   {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference questionsReference = database.getReference().child("Questions");
     private View llProgressBar;
+    private TextView textViewGroup;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class FragmentShow extends Fragment   {
         llProgressBar= v.findViewById(R.id.llProgressBar);
         llProgressBar.setVisibility(View.VISIBLE);
         groupId = getArguments().getString("groupId");
+        textViewGroup = v.findViewById(R.id.myTitle);
+        textViewGroup.setText( "Group: "+ groupId);
         questionItems = new ArrayList<>();
         //az osszes kerdest kilistazza
         questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -110,7 +114,6 @@ public class FragmentShow extends Fragment   {
                         String mQuestion = question.getText().toString();
                         if(mQuestion.isEmpty()) {
                             question.setError("Please Enter question.");
-
                         }
                         else {
                             applyQuestion(mQuestion);
@@ -118,9 +121,6 @@ public class FragmentShow extends Fragment   {
                             FirebaseDataHelper.Instance.InsertQuestion(questions, groupId);
                         }
                     }
-
-
-
                 });
 
                 builder.show();

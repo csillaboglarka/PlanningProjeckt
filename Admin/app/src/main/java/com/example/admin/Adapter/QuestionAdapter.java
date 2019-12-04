@@ -77,7 +77,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         {
             @Override
             public void onClick(View v)
-            {
+            { // mSwitch egy checkbox-ot takar
                final CheckBox cb = (CheckBox)v;
                 AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
                 builder.setTitle("are you sure");
